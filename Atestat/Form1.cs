@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Atestat
 {
@@ -23,6 +24,7 @@ namespace Atestat
             //MessageBox.Show(sqlpoint.ToString());
             con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+sqlpoint+";Integrated Security=True;Connect Timeout=30");
             inregistrare = new Inregistrare(con);
+            textBox2.PasswordChar = '*';
         }
 
         private void Form1_Load(object sender, EventArgs e)
