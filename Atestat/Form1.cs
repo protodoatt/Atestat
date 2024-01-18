@@ -45,9 +45,6 @@ namespace Atestat
                 if (cmd.ExecuteReader().Read())
                 {
                     MessageBox.Show("success");
-                    AlegeJoc joc1 = new AlegeJoc(textBox2.Text, textBox1.Text);
-                    joc1.Show();
-                    this.Hide();
                 }
                 else MessageBox.Show("error");
                 con.Close();
