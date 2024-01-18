@@ -24,7 +24,7 @@ namespace Atestat
         public Form1()
         {
             sqlpoint = sqlpoint.Remove(sqlpoint.Length - 9)+"JocEducativ.mdf";
-            MessageBox.Show(sqlpoint);
+            //MessageBox.Show(sqlpoint);
             qdec = new QRCodeEncoder();
             qdec.QRCodeScale = 8;
             
@@ -68,9 +68,11 @@ namespace Atestat
             openFileDialog1.CheckFileExists = true;
             openFileDialog1.CheckPathExists = true;
             openFileDialog1.ShowDialog();
-            pictureBox1.ImageLocation = openFileDialog1.FileName;
+            pictureBox1.Image = Image.FromFile(openFileDialog1.FileName);
             QRCodeDecoder dec = new QRCodeDecoder();
-            dec.decode(new QRCodeImage(pictureBox1.Image as Bitmap));
+
+            MessageBox.Show(dec.decode(new QRCodeBitmapImage(pictureBox1.Image as Bitmap)));
+
             
         }
 

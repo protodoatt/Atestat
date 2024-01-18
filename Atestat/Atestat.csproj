@@ -49,7 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MessagingToolkit.QRCode">
-      <HintPath>C:\Users\Elev\Downloads\ONTI_2023_C#_Resurse\MessagingToolkit.QRCode.dll</HintPath>
+      <HintPath>.\MessagingToolkit.QRCode.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
