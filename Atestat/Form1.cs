@@ -15,11 +15,15 @@ namespace Atestat
     public partial class Form1 : Form
     {
         SqlConnection con;
-        String sqlpoint = Application.StartupPath.Remove(49)+"JocEducativ.mdf";
+        String sqlpoint = Application.StartupPath;
+        
         Inregistrare inregistrare;
         
         public Form1()
         {
+            sqlpoint = sqlpoint.Remove(sqlpoint.Length - 9)+"JocEducativ.mdf";
+            MessageBox.Show(sqlpoint);
+
             InitializeComponent();
             //MessageBox.Show(sqlpoint.ToString());
             con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+sqlpoint+";Integrated Security=True;Connect Timeout=30");
