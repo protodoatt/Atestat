@@ -48,6 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MessagingToolkit.QRCode">
+      <HintPath>C:\Users\Elev\Downloads\ONTI_2023_C#_Resurse\MessagingToolkit.QRCode.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -66,11 +69,6 @@
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="JocEducativDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>JocEducativDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Inregistrare.cs">
       <SubType>Form</SubType>
@@ -95,17 +93,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="JocEducativDataSet.xsc">
-      <DependentUpon>JocEducativDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="JocEducativDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>JocEducativDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="JocEducativDataSet.xss">
-      <DependentUpon>JocEducativDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
