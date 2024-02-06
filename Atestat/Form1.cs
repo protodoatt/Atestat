@@ -31,7 +31,7 @@ namespace Atestat
             
             InitializeComponent();
             //MessageBox.Show(sqlpoint.ToString());
-            con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+sqlpoint+";Integrated Security=True;Connect Timeout=30");
+            con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+sqlpoint+ ";Integrated Security=True;Connect Timeout=30; MultipleActiveResultSets=true");
             inregistrare = new Inregistrare(con);
             textBox2.PasswordChar = '*';
             //Data_loader();
@@ -51,6 +51,17 @@ namespace Atestat
                 if (cmd.ExecuteReader().Read())
                 {
                     MessageBox.Show("success");
+                    this.Hide();
+                    SqlCommand cmd2 = new SqlCommand("SELECT NumeUtilizator FROM Utilizatori WHERE EmailUtilizator = @email", con);
+                    cmd2.Parameters.AddWithValue("@email", textBox1.Text);
+                    SqlDataReader rdr = cmd2.ExecuteReader();
+                    rdr.Read();
+                    string usrnm = rdr[0].ToString();
+                    usrnm = usrnm.Trim();
+                    rdr.Close();
+                    AlegeJoc joc = new AlegeJoc(textBox1.Text, usrnm);
+                    joc.Show();
+                    joc.Closed += (s, args) => this.Close();
                 }
                 else MessageBox.Show("error");
                 con.Close();
