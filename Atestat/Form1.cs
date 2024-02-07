@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using MessagingToolkit.QRCode.Codec.Data;
 using MessagingToolkit.QRCode.Codec;
-using System.IO;
 
 namespace Atestat
 {
@@ -31,10 +30,9 @@ namespace Atestat
             
             InitializeComponent();
             //MessageBox.Show(sqlpoint.ToString());
-            con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+sqlpoint+ ";Integrated Security=True;Connect Timeout=30; MultipleActiveResultSets=true");
+            con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+sqlpoint+";Integrated Security=True;Connect Timeout=30");
             inregistrare = new Inregistrare(con);
             textBox2.PasswordChar = '*';
-            //Data_loader();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -51,17 +49,6 @@ namespace Atestat
                 if (cmd.ExecuteReader().Read())
                 {
                     MessageBox.Show("success");
-                    this.Hide();
-                    SqlCommand cmd2 = new SqlCommand("SELECT NumeUtilizator FROM Utilizatori WHERE EmailUtilizator = @email", con);
-                    cmd2.Parameters.AddWithValue("@email", textBox1.Text);
-                    SqlDataReader rdr = cmd2.ExecuteReader();
-                    rdr.Read();
-                    string usrnm = rdr[0].ToString();
-                    usrnm = usrnm.Trim();
-                    rdr.Close();
-                    AlegeJoc joc = new AlegeJoc(textBox1.Text, usrnm);
-                    joc.Show();
-                    joc.Closed += (s, args) => this.Close();
                 }
                 else MessageBox.Show("error");
                 con.Close();
@@ -83,37 +70,15 @@ namespace Atestat
             openFileDialog1.ShowDialog();
             pictureBox1.Image = Image.FromFile(openFileDialog1.FileName);
             QRCodeDecoder dec = new QRCodeDecoder();
-            //MessageBox.Show(dec.decode(new QRCodeBitmapImage(pictureBox1.Image as Bitmap)));
-            String unprocessed_code = dec.decode(new QRCodeBitmapImage(pictureBox1.Image as Bitmap));
-            string[] code = unprocessed_code.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
-            textBox1.Text = code[1];
-            textBox2.Text = code[2];
+            MessageBox.Show(dec.decode(new QRCodeBitmapImage(pictureBox1.Image as Bitmap)));
+
+            
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             Bitmap bmp = qdec.Encode("andrei O SUGE");
             pictureBox1.Image = bmp;
-        }
-
-        private void Data_loader()
-        {
-            con.Open();
-            StreamReader sr = new StreamReader(sqlpoint.Remove(sqlpoint.Length-15)+"\\Resurse\\Utilizatori.txt");
-            String line = sr.ReadLine();
-            while(line != null)
-            {
-                string[] split_line = line.Split(new string[] {";" }, StringSplitOptions.RemoveEmptyEntries);
-                //MessageBox.Show(split_line[1]);
-                string command = "INSERT INTO Utilizatori (NumeUtilizator, Parola, EmailUtilizator) VALUES (@user, @pass, @email)";
-                SqlCommand cmd = new SqlCommand(command, con);
-                cmd.Parameters.AddWithValue("@user", split_line[1]);
-                cmd.Parameters.AddWithValue("@pass", split_line[2]);
-                cmd.Parameters.AddWithValue("@email", split_line[0]);
-                cmd.ExecuteNonQuery();
-                line = sr.ReadLine();
-            }
-            con.Close();
         }
     }
 }
