@@ -31,11 +31,11 @@ namespace Atestat
             
             InitializeComponent();
             //MessageBox.Show(sqlpoint.ToString());
-            con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+sqlpoint+ ";Integrated Security=True;Connect Timeout=30; MultipleActiveResultSets=true");
+            con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+sqlpoint+";Integrated Security=True;Connect Timeout=30; MultipleActiveResultSets=true");
             inregistrare = new Inregistrare(con);
             textBox2.PasswordChar = '*';
             //user_data_loader();
-            results_data_loader();
+            //results_data_loader();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -130,7 +130,7 @@ namespace Atestat
                 cmd.Parameters.AddWithValue("@tipjoc", split_line[0]);
                 cmd.Parameters.AddWithValue("@email", split_line[1]);
                 cmd.Parameters.AddWithValue("@punctaj", split_line[2]);
-                cmd.Parameters.AddWithValue("@data", split_line[3]);
+                cmd.Parameters.AddWithValue("@data", DateTime.Parse(split_line[3]));
                 cmd.ExecuteNonQuery();
                 line = sr.ReadLine();
             }
