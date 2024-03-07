@@ -13,8 +13,8 @@ namespace Atestat
     public partial class MemGame : Form
     {
         string[] panou_address;
-        int n = 3;
-        PictureBox[] boxes;
+        int n = 8;
+        PictureBox[] boxes, match_boxes;
         public MemGame()
         {
             string[] file_names = { "avion.png", "bloc.png", "caine.jpg", "caprioara.jpg", "iepure.png", "leu.jpg", "lup.jpg", "vulpe.png" };
@@ -38,9 +38,24 @@ namespace Atestat
             for(int i = 0; i<n; i++)
             {
                 boxes[i] = new PictureBox();
-                boxes[i].Location = new Point(30, i*50);
-                boxes[i].ImageLocation = panou_address[i];
-                boxes[i].Show();
+                boxes[i].Location = new Point(100*i, 50);
+                boxes[i].BackgroundImage = Image.FromFile(panou_address[i]);
+                boxes[i].BackColor = Color.Yellow;
+                boxes[i].BackgroundImageLayout = ImageLayout.Stretch;
+                boxes[i].Size = new Size(90, 90);
+                this.Controls.Add(boxes[i]);
+            }
+            match_boxes = new PictureBox[panou_address.Length];
+            Random rnd = new Random();
+            for(int i = 0; i<n; i++) {
+                match_boxes[i] = new PictureBox();
+                match_boxes[i].Location = new Point(100 * i, 120);
+                string bleh = panou_address[rnd.Next(0, panou_address.Length)];
+                match_boxes[i].BackgroundImage = Image.FromFile(bleh);
+                match_boxes[i].BackColor = Color.Yellow;
+                match_boxes[i].BackgroundImageLayout = ImageLayout.Stretch;
+                match_boxes[i].Size = new Size(90, 90);
+                this.Controls.Add(match_boxes[i]);
             }
         }
     }
