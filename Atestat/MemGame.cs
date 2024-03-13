@@ -15,6 +15,8 @@ namespace Atestat
         string[] panou_address;
         int n = 8;
         PictureBox[] boxes, match_boxes;
+        string[] match_boxes_images;
+        string selected_image = null;
         public MemGame()
         {
             string[] file_names = { "avion.png", "bloc.png", "caine.jpg", "caprioara.jpg", "iepure.png", "leu.jpg", "lup.jpg", "vulpe.png" };
@@ -35,27 +37,79 @@ namespace Atestat
         private void MemGame_Load(object sender, EventArgs e)
         {
             boxes = new PictureBox[panou_address.Length];
-            for(int i = 0; i<n; i++)
+            for (int i = 0; i<n; i++)
             {
                 boxes[i] = new PictureBox();
                 boxes[i].Location = new Point(100*i, 50);
-                boxes[i].BackgroundImage = Image.FromFile(panou_address[i]);
+                //boxes[i].BackgroundImage = Image.FromFile(panou_address[i]);
                 boxes[i].BackColor = Color.Yellow;
                 boxes[i].BackgroundImageLayout = ImageLayout.Stretch;
                 boxes[i].Size = new Size(90, 90);
+                boxes[i].Click += click;
                 this.Controls.Add(boxes[i]);
             }
             match_boxes = new PictureBox[panou_address.Length];
             Random rnd = new Random();
+            bool[] last_occurences = new bool[panou_address.Length];
+            string[] match_boxes_images = new string[panou_address.Length];
             for(int i = 0; i<n; i++) {
                 match_boxes[i] = new PictureBox();
-                match_boxes[i].Location = new Point(100 * i, 120);
-                string bleh = panou_address[rnd.Next(0, panou_address.Length)];
-                match_boxes[i].BackgroundImage = Image.FromFile(bleh);
+                match_boxes[i].Location = new Point(100 * i, 150);
+                string bleh;
+                int rand = rnd.Next(0, panou_address.Length);
+                while (last_occurences[rand] == true)
+                    rand = rnd.Next(0, panou_address.Length);
+                last_occurences[rand] = true;
+                bleh = panou_address[rand];
+                //match_boxes[i].BackgroundImage = Image.FromFile(bleh);
+                match_boxes_images[i] = bleh;
                 match_boxes[i].BackColor = Color.Yellow;
                 match_boxes[i].BackgroundImageLayout = ImageLayout.Stretch;
                 match_boxes[i].Size = new Size(90, 90);
+                match_boxes[i].Click += click_match;
                 this.Controls.Add(match_boxes[i]);
+            }
+            this.match_boxes_images = match_boxes_images;
+        }
+
+        private void click_match(object sender, System.EventArgs e)
+        {
+            if(selected_image != null)
+            {
+                PictureBox pb = (PictureBox)sender;
+                int index = Array.IndexOf(match_boxes, pb);
+                if(selected_image != null)
+                {
+                    if (selected_image == match_boxes_images[index])
+                    {
+                        pb.Image = Image.FromFile(selected_image);
+                        pb.BackgroundImageLayout = ImageLayout.Stretch;
+                    }
+                    selected_image = null;
+                }
+                else
+                {
+                    selected_image = match_boxes_images[index];
+                    pb.Image = Image.FromFile(match_boxes_images[index]);
+                }
+            }
+        }
+
+        private void click (object sender, System.EventArgs e) {
+            PictureBox pb = (PictureBox)sender;
+            int index = Array.IndexOf(boxes, pb);
+            if (selected_image != null)
+            {
+                if (selected_image == panou_address[index])
+                {
+                    pb.Image = Image.FromFile(panou_address[index]);
+                    pb.BackgroundImageLayout = ImageLayout.Stretch;
+                }
+                selected_image = null;
+            }
+            else {
+                selected_image = panou_address[index];
+                pb.Image = Image.FromFile(panou_address[index]);
             }
         }
     }
