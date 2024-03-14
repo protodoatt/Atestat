@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +18,8 @@ namespace Atestat
         PictureBox[] boxes, match_boxes;
         string[] match_boxes_images;
         string selected_image = null;
+        int points = 0;
+        bool? selected_image_row;
         public MemGame()
         {
             string[] file_names = { "avion.png", "bloc.png", "caine.jpg", "caprioara.jpg", "iepure.png", "leu.jpg", "lup.jpg", "vulpe.png" };
@@ -72,26 +75,36 @@ namespace Atestat
             this.match_boxes_images = match_boxes_images;
         }
 
+        private void update_label(int n)
+        {
+            label1.Text = "Puncte: " + n;
+        }
+
         private void click_match(object sender, System.EventArgs e)
         {
-            if(selected_image != null)
+            PictureBox pb = (PictureBox)sender;
+            int index = Array.IndexOf(match_boxes, pb);
+            if (selected_image != null)
             {
-                PictureBox pb = (PictureBox)sender;
-                int index = Array.IndexOf(match_boxes, pb);
-                if(selected_image != null)
+                if (selected_image == match_boxes_images[index])
                 {
-                    if (selected_image == match_boxes_images[index])
-                    {
-                        pb.Image = Image.FromFile(selected_image);
-                        pb.BackgroundImageLayout = ImageLayout.Stretch;
-                    }
+                    pb.BackgroundImageLayout = ImageLayout.Stretch;
+                    pb.Image = Image.FromFile(selected_image);
                     selected_image = null;
+                    points++;
+                    update_label(points);
                 }
                 else
                 {
-                    selected_image = match_boxes_images[index];
-                    pb.Image = Image.FromFile(match_boxes_images[index]);
+                    int index_remover = Array.IndexOf(panou_address, selected_image);
+                    boxes[index_remover].Image = null;
                 }
+            }
+            else if (pb.Image == null && (selected_image_row == false || selected_image_row == null))
+            {
+                selected_image = match_boxes_images[index];
+                selected_image_row = true;
+                pb.Image = Image.FromFile(match_boxes_images[index]);
             }
         }
 
@@ -104,11 +117,19 @@ namespace Atestat
                 {
                     pb.Image = Image.FromFile(panou_address[index]);
                     pb.BackgroundImageLayout = ImageLayout.Stretch;
+                    selected_image = null;
+                    points++;
+                    update_label(points);
                 }
-                selected_image = null;
+                else
+                {
+                    int index_remover = Array.IndexOf(match_boxes_images, selected_image);
+                    match_boxes[index_remover].Image = null;
+                }
             }
-            else {
+            else if (pb.Image == null && (selected_image_row==true || selected_image_row == null)) {
                 selected_image = panou_address[index];
+                selected_image_row = false;
                 pb.Image = Image.FromFile(panou_address[index]);
             }
         }
