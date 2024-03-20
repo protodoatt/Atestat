@@ -86,25 +86,26 @@ namespace Atestat
             int index = Array.IndexOf(match_boxes, pb);
             if (selected_image != null)
             {
-                if (selected_image == match_boxes_images[index])
+                if (selected_image == match_boxes_images[index] && selected_image_row==false)
                 {
                     pb.BackgroundImageLayout = ImageLayout.Stretch;
-                    pb.Image = Image.FromFile(selected_image);
+                    pb.BackgroundImage = Image.FromFile(selected_image);
                     selected_image = null;
+                    selected_image_row = null;
                     points++;
                     update_label(points);
                 }
-                else
+                else if(selected_image_row == true)
                 {
                     int index_remover = Array.IndexOf(panou_address, selected_image);
-                    boxes[index_remover].Image = null;
+                    boxes[index_remover].BackgroundImage = null;
                 }
             }
-            else if (pb.Image == null && (selected_image_row == false || selected_image_row == null))
+            else if (pb.BackgroundImage == null && selected_image_row == null)
             {
                 selected_image = match_boxes_images[index];
                 selected_image_row = true;
-                pb.Image = Image.FromFile(match_boxes_images[index]);
+                pb.BackgroundImage = Image.FromFile(match_boxes_images[index]);
             }
         }
 
@@ -113,24 +114,25 @@ namespace Atestat
             int index = Array.IndexOf(boxes, pb);
             if (selected_image != null)
             {
-                if (selected_image == panou_address[index])
+                if (selected_image == panou_address[index] && selected_image_row == true)
                 {
-                    pb.Image = Image.FromFile(panou_address[index]);
+                    pb.BackgroundImage = Image.FromFile(panou_address[index]);
                     pb.BackgroundImageLayout = ImageLayout.Stretch;
                     selected_image = null;
+                    selected_image_row = null;
                     points++;
                     update_label(points);
                 }
-                else
+                else if (selected_image_row==false)
                 {
                     int index_remover = Array.IndexOf(match_boxes_images, selected_image);
-                    match_boxes[index_remover].Image = null;
+                    match_boxes[index_remover].BackgroundImage = null;
                 }
             }
-            else if (pb.Image == null && (selected_image_row==true || selected_image_row == null)) {
+            else if (pb.BackgroundImage == null && selected_image_row == null) {
                 selected_image = panou_address[index];
                 selected_image_row = false;
-                pb.Image = Image.FromFile(panou_address[index]);
+                pb.BackgroundImage = Image.FromFile(panou_address[index]);
             }
         }
     }
