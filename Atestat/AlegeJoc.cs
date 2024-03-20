@@ -32,8 +32,18 @@ namespace Atestat
 
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MemGame memGame = new MemGame();
+            memGame.Show();
+            memGame.Closed += (s, args) => this.Close();
+            this.Hide();
+        }
+
         private void AlegeJoc_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'jocEducativDataSet.Rezultate' table. You can move, or remove it, as needed.
+            this.rezultateTableAdapter.Fill(this.jocEducativDataSet.Rezultate);
 
         }
     }

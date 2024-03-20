@@ -28,7 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.jocEducativDataSet = new Atestat.JocEducativDataSet();
+            this.rezultateBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.rezultateTableAdapter = new Atestat.JocEducativDataSetTableAdapters.RezultateTableAdapter();
+            this.idRezultatDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipJocDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.emailUtilizatorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.punctajJocDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jocEducativDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rezultateBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -41,15 +56,101 @@
             this.label1.Text = "You are not supposed to see this";
             this.label1.Click += new System.EventHandler(this.label1_Click_1);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idRezultatDataGridViewTextBoxColumn,
+            this.tipJocDataGridViewTextBoxColumn,
+            this.emailUtilizatorDataGridViewTextBoxColumn,
+            this.punctajJocDataGridViewTextBoxColumn,
+            this.dataDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.rezultateBindingSource;
+            this.dataGridView1.Location = new System.Drawing.Point(81, 79);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(643, 273);
+            this.dataGridView1.TabIndex = 1;
+            // 
+            // jocEducativDataSet
+            // 
+            this.jocEducativDataSet.DataSetName = "JocEducativDataSet";
+            this.jocEducativDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // rezultateBindingSource
+            // 
+            this.rezultateBindingSource.DataMember = "Rezultate";
+            this.rezultateBindingSource.DataSource = this.jocEducativDataSet;
+            // 
+            // rezultateTableAdapter
+            // 
+            this.rezultateTableAdapter.ClearBeforeFill = true;
+            // 
+            // idRezultatDataGridViewTextBoxColumn
+            // 
+            this.idRezultatDataGridViewTextBoxColumn.DataPropertyName = "IdRezultat";
+            this.idRezultatDataGridViewTextBoxColumn.HeaderText = "IdRezultat";
+            this.idRezultatDataGridViewTextBoxColumn.Name = "idRezultatDataGridViewTextBoxColumn";
+            this.idRezultatDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // tipJocDataGridViewTextBoxColumn
+            // 
+            this.tipJocDataGridViewTextBoxColumn.DataPropertyName = "TipJoc";
+            this.tipJocDataGridViewTextBoxColumn.HeaderText = "TipJoc";
+            this.tipJocDataGridViewTextBoxColumn.Name = "tipJocDataGridViewTextBoxColumn";
+            // 
+            // emailUtilizatorDataGridViewTextBoxColumn
+            // 
+            this.emailUtilizatorDataGridViewTextBoxColumn.DataPropertyName = "EmailUtilizator";
+            this.emailUtilizatorDataGridViewTextBoxColumn.HeaderText = "EmailUtilizator";
+            this.emailUtilizatorDataGridViewTextBoxColumn.Name = "emailUtilizatorDataGridViewTextBoxColumn";
+            // 
+            // punctajJocDataGridViewTextBoxColumn
+            // 
+            this.punctajJocDataGridViewTextBoxColumn.DataPropertyName = "PunctajJoc";
+            this.punctajJocDataGridViewTextBoxColumn.HeaderText = "PunctajJoc";
+            this.punctajJocDataGridViewTextBoxColumn.Name = "punctajJocDataGridViewTextBoxColumn";
+            // 
+            // dataDataGridViewTextBoxColumn
+            // 
+            this.dataDataGridViewTextBoxColumn.DataPropertyName = "Data";
+            this.dataDataGridViewTextBoxColumn.HeaderText = "Data";
+            this.dataDataGridViewTextBoxColumn.Name = "dataDataGridViewTextBoxColumn";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(112, 384);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(161, 33);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Testeaza Memoria";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(329, 384);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(161, 33);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Testeaza Memoria";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // AlegeJoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
             this.Name = "AlegeJoc";
             this.Text = "AlegeJoc";
             this.Load += new System.EventHandler(this.AlegeJoc_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.jocEducativDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rezultateBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -58,5 +159,16 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private JocEducativDataSet jocEducativDataSet;
+        private System.Windows.Forms.BindingSource rezultateBindingSource;
+        private JocEducativDataSetTableAdapters.RezultateTableAdapter rezultateTableAdapter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idRezultatDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tipJocDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn emailUtilizatorDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn punctajJocDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
     }
 }

@@ -31,10 +31,11 @@ namespace Atestat
             
             InitializeComponent();
             //MessageBox.Show(sqlpoint.ToString());
-            con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+sqlpoint+ ";Integrated Security=True;Connect Timeout=30; MultipleActiveResultSets=true");
+            con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+sqlpoint+";Integrated Security=True;Connect Timeout=30; MultipleActiveResultSets=true");
             inregistrare = new Inregistrare(con);
             textBox2.PasswordChar = '*';
             //user_data_loader();
+            //results_data_loader();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -110,6 +111,26 @@ namespace Atestat
                 cmd.Parameters.AddWithValue("@user", split_line[1]);
                 cmd.Parameters.AddWithValue("@pass", split_line[2]);
                 cmd.Parameters.AddWithValue("@email", split_line[0]);
+                cmd.ExecuteNonQuery();
+                line = sr.ReadLine();
+            }
+            con.Close();
+        }
+
+        private void results_data_loader()
+        {
+            con.Open();
+            StreamReader sr = new StreamReader(sqlpoint.Remove(sqlpoint.Length - 15) + "\\Resurse\\Rezultate.txt");
+            String line = sr.ReadLine();
+            while(line != null)
+            {
+                string[] split_line = line.Split(new string[] {";"}, StringSplitOptions.RemoveEmptyEntries);
+                string command = "INSERT INTO Rezultate (TipJoc, EmailUtilizator, PunctajJoc, Data) VALUES (@tipjoc, @email, @punctaj, @data)";
+                SqlCommand cmd = new SqlCommand(command, con);
+                cmd.Parameters.AddWithValue("@tipjoc", split_line[0]);
+                cmd.Parameters.AddWithValue("@email", split_line[1]);
+                cmd.Parameters.AddWithValue("@punctaj", split_line[2]);
+                cmd.Parameters.AddWithValue("@data", DateTime.Parse(split_line[3]));
                 cmd.ExecuteNonQuery();
                 line = sr.ReadLine();
             }
