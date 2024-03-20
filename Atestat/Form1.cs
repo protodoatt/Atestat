@@ -34,7 +34,7 @@ namespace Atestat
             con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+sqlpoint+ ";Integrated Security=True;Connect Timeout=30; MultipleActiveResultSets=true");
             inregistrare = new Inregistrare(con);
             textBox2.PasswordChar = '*';
-            //Data_loader();
+            //user_data_loader();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -96,7 +96,7 @@ namespace Atestat
             pictureBox1.Image = bmp;
         }
 
-        private void Data_loader()
+        private void user_data_loader()
         {
             con.Open();
             StreamReader sr = new StreamReader(sqlpoint.Remove(sqlpoint.Length-15)+"\\Resurse\\Utilizatori.txt");
