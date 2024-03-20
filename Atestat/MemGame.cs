@@ -135,5 +135,24 @@ namespace Atestat
                 pb.BackgroundImage = Image.FromFile(panou_address[index]);
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            reset_game(sender, e);
+        }
+
+        private void reset_game(object sender, System.EventArgs e)
+        {
+            for(int i =  0; i < match_boxes.Length; i++)
+            {
+                match_boxes[i].Dispose();
+                boxes[i].Dispose();
+            }
+            boxes = null;
+            match_boxes = null;
+            points = 0;
+            update_label(0);
+            MemGame_Load(sender, e);
+        }
     }
 }
