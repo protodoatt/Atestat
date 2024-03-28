@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -100,6 +101,15 @@ namespace Atestat
                     int index_remover = Array.IndexOf(panou_address, selected_image);
                     boxes[index_remover].BackgroundImage = null;
                 }
+                else
+                {
+                    Timer timer = new Timer();
+                    timer.Interval = 300;
+                    Imager imager = new Imager(pb);
+                    imager.show_image(Image.FromFile(match_boxes_images[index]));
+                    timer.Tick += imager.hide_image;
+                    timer.Start();
+                }
             }
             else if (pb.BackgroundImage == null && selected_image_row == null)
             {
@@ -123,10 +133,20 @@ namespace Atestat
                     points++;
                     update_label(points);
                 }
-                else if (selected_image_row==false)
+                else if (selected_image_row == false)
                 {
                     int index_remover = Array.IndexOf(match_boxes_images, selected_image);
                     match_boxes[index_remover].BackgroundImage = null;
+                }
+
+                else
+                {
+                    Timer timer = new Timer();
+                    timer.Interval = 300;
+                    Imager imager = new Imager(pb);
+                    imager.show_image(Image.FromFile(panou_address[index]));
+                    timer.Tick += imager.hide_image;
+                    timer.Start();
                 }
             }
             else if (pb.BackgroundImage == null && selected_image_row == null) {
@@ -134,6 +154,27 @@ namespace Atestat
                 selected_image_row = false;
                 pb.BackgroundImage = Image.FromFile(panou_address[index]);
             }
+        }
+
+        public class Imager
+        {
+            PictureBox pb;
+            public void hide_image(object sender, EventArgs e)
+            {
+                pb.BackgroundImage = null;
+                Timer ts = (Timer)sender;
+                ts.Stop();
+            }
+            public void show_image(Image img)
+            {
+                pb.BackgroundImage = img;
+                pb.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+            public Imager(PictureBox pb)
+            {
+                this.pb = pb;
+            }
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
