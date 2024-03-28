@@ -28,7 +28,6 @@ namespace Atestat
             String base_string = Application.StartupPath;
             base_string = base_string.Remove(base_string.Length - 9);
             base_string += "Resurse\\Imagini\\";
-            MessageBox.Show(base_string);
             string[] panou_address = new string[8];
             panou_address = Enumerable.Repeat(base_string, 8).ToArray();
             for(int i = 0; i < panou_address.Length; i++)
