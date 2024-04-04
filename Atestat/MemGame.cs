@@ -21,7 +21,8 @@ namespace Atestat
         string selected_image = null;
         int points = 0;
         bool? selected_image_row;
-        public MemGame()
+        string username, email;
+        public MemGame(string username, string email)
         {
             string[] file_names = { "avion.png", "bloc.png", "caine.jpg", "caprioara.jpg", "iepure.png", "leu.jpg", "lup.jpg", "vulpe.png" };
             InitializeComponent();
@@ -36,6 +37,9 @@ namespace Atestat
             }
             //MessageBox.Show(panou_address[2]);
             this.panou_address = panou_address;
+
+            this.username = username;
+            this.email = email;
         }
         private void MemGame_Load(object sender, EventArgs e)
         {
@@ -153,6 +157,7 @@ namespace Atestat
                 selected_image_row = false;
                 pb.BackgroundImage = Image.FromFile(panou_address[index]);
             }
+            if (points == 8) db_loader();
         }
 
         public class Imager
@@ -193,6 +198,11 @@ namespace Atestat
             points = 0;
             update_label(0);
             MemGame_Load(sender, e);
+        }
+
+        public void db_loader()
+        {
+
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Atestat
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MemGame memGame = new MemGame();
+            MemGame memGame = new MemGame(username, email);
             memGame.Show();
             memGame.Closed += (s, args) => this.Close();
             this.Hide();

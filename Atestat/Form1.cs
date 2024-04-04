@@ -28,7 +28,6 @@ namespace Atestat
             //MessageBox.Show(sqlpoint);
             qdec = new QRCodeEncoder();
             qdec.QRCodeScale = 8;
-            
             InitializeComponent();
             //MessageBox.Show(sqlpoint.ToString());
             con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+sqlpoint+";Integrated Security=True;Connect Timeout=30; MultipleActiveResultSets=true");
