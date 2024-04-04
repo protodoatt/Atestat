@@ -22,6 +22,7 @@ namespace Atestat
         int points = 0;
         bool? selected_image_row;
         string username, email;
+        bool gamestarted = false;
         public MemGame(string username, string email)
         {
             string[] file_names = { "avion.png", "bloc.png", "caine.jpg", "caprioara.jpg", "iepure.png", "leu.jpg", "lup.jpg", "vulpe.png" };
@@ -37,12 +38,13 @@ namespace Atestat
             }
             //MessageBox.Show(panou_address[2]);
             this.panou_address = panou_address;
-
             this.username = username;
             this.email = email;
         }
         private void MemGame_Load(object sender, EventArgs e)
         {
+            button1.Text = "Start!";
+
             boxes = new PictureBox[panou_address.Length];
             for (int i = 0; i<n; i++)
             {
@@ -183,7 +185,46 @@ namespace Atestat
 
         private void button1_Click(object sender, EventArgs e)
         {
-            reset_game(sender, e);
+            if (gamestarted)
+                reset_game(sender, e);
+            else start_game(sender, e);
+        }
+        private void start_game(object sender, EventArgs e)
+        {
+            gamestarted = true;
+            Button but = (Button)sender;
+            but.Text = "Reset";
+            timer1.Enabled = true;
+            timer1.Interval = 1000;
+            timer1.Tick += timer_update;
+            timer1.Start();
+        }
+        int seconds = 30;
+
+        private void timer_update(object sender, EventArgs e)
+        {
+            label2.Text = "Timer: " + seconds--.ToString();
+            if(seconds <= 0)
+            {
+                timer1.Stop();
+                label2.Text = "S-a scurs timpul!";
+                label2.ForeColor = Color.Red;
+                for(int i = 0; i<n; i++)
+                {
+                    match_boxes[i].Click -= click_match;
+                    boxes[i].Click -= click;
+                }
+            }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+
         }
 
         private void reset_game(object sender, System.EventArgs e)
@@ -196,7 +237,16 @@ namespace Atestat
             boxes = null;
             match_boxes = null;
             points = 0;
+            button1.Text = "Start!";
+            timer1.Stop();
+            timer1.Enabled = false;
+            timer1.Tick -= timer_update;
+            selected_image = null;
+            selected_image_row = null;
             update_label(0);
+            gamestarted = false;
+            seconds = 30;
+            label2.Text = "Timer: ";
             MemGame_Load(sender, e);
         }
 
